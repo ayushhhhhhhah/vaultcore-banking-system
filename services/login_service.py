@@ -1,8 +1,11 @@
+import bcrypt
+
 from flask_jwt_extended import create_access_token
+
 from database.db import get_db_connection
 
 
-def login_user(email, password):
+def login_customer(email, password):
 
     conn = get_db_connection()
 
@@ -17,23 +20,44 @@ def login_user(email, password):
 
     conn.close()
 
+    # CUSTOMER NOT FOUND
     if customer is None:
 
         return {
-            "error": "Invalid email"
-        }, 401
+            "error": "Customer not found"
+        }, 404
 
-    if password != customer['password']:
+    stored_password = customer["password"]
+
+    # PASSWORD CHECK
+    password_correct = bcrypt.checkpw(
+        password.encode("utf-8"),
+        stored_password.encode("utf-8")
+    )
+
+    if not password_correct:
 
         return {
             "error": "Invalid password"
         }, 401
 
+    # JWT TOKEN
     access_token = create_access_token(
-        identity=str(customer['customer_id'])
+        identity=str(customer["customer_id"])
     )
 
     return {
+
         "message": "Login successful",
-        "access_token": access_token
+
+        "token": access_token,
+
+        "customer": {
+
+            "customer_id": customer["customer_id"],
+            "first_name": customer["first_name"],
+            "email": customer["email"]
+
+        }
+
     }, 200

@@ -39,6 +39,10 @@
 
             </li>
 
+            <li onclick="openAIChatbot()">
+    AI Assistant
+</li>
+
             <li onclick="showSection('accounts-section')">
 
                 Accounts
@@ -345,6 +349,43 @@
             </button>
 
         </div>
+
+    </div>
+
+</div>
+
+<!-- AI CHATBOT -->
+
+<div id="chatbot-container"
+     class="hidden">
+
+    <div class="chatbot-header">
+
+        VaultCore AI Assistant
+
+        <span onclick="toggleChatbot()">
+            ✖
+        </span>
+
+    </div>
+
+    <div id="chat-messages">
+
+    </div>
+
+    <div class="chat-input-area">
+
+        <input
+            type="text"
+            id="chat-input"
+            placeholder="Ask something..."
+        >
+
+        <button onclick="sendMessage()">
+
+            Send
+
+        </button>
 
     </div>
 

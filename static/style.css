@@ -757,3 +757,653 @@ tbody tr:hover {
         grid-template-columns: 1fr;
     }
 }
+/* CHATBOT */
+
+#chatbot-container {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    right: 20px;
+
+    width: 360px;
+
+    height: 500px;
+
+    background: #1e293b;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.4);
+
+    z-index: 999;
+}
+
+.chatbot-header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0ea5e9,
+            #2563eb
+        );
+
+    color: white;
+
+    padding: 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-weight: bold;
+}
+
+#chat-messages {
+
+    flex: 1;
+
+    padding: 15px;
+
+    overflow-y: auto;
+
+    color: white;
+}
+
+.chat-input-area {
+
+    display: flex;
+
+    padding: 10px;
+
+    background: #0f172a;
+}
+
+.chat-input-area input {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    outline: none;
+}
+
+.chat-input-area button {
+
+    margin-left: 10px;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #38bdf8;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.user-message {
+
+    background: #2563eb;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+
+    text-align: right;
+}
+
+.bot-message {
+
+    background: #334155;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   IMPROVED AUTH UI OVERRIDES
+========================================= */
+
+/* BETTER BACKGROUND */
+
+.auth-body {
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(2, 6, 23, 0.82),
+            rgba(2, 6, 23, 0.82)
+        ),
+
+        url("https://images.unsplash.com/photo-1601597111158-2fceff292cdc?q=80&w=2070")
+        no-repeat center center/cover;
+
+    overflow-y: auto;
+
+    padding: 40px 20px;
+}
+
+
+/* BETTER GLASS EFFECT */
+
+.auth-container {
+
+    min-height: 680px;
+
+    height: auto;
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    background:
+        rgba(15, 23, 42, 0.72);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.55);
+}
+
+
+/* LEFT PANEL IMPROVEMENT */
+
+.left-side {
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.left-side::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+
+    height: 300px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    border-radius: 50%;
+
+    top: -80px;
+
+    right: -80px;
+}
+
+
+.left-side::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+
+    height: 250px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    border-radius: 50%;
+
+    bottom: -100px;
+
+    left: -80px;
+}
+
+
+.left-side h1 {
+
+    font-size: 64px;
+
+    font-weight: 800;
+
+    z-index: 2;
+}
+
+
+.left-side p {
+
+    font-size: 21px;
+
+    line-height: 1.6;
+
+    opacity: 0.92;
+
+    z-index: 2;
+}
+
+
+/* RIGHT SIDE */
+
+.right-side {
+
+    align-items: flex-start;
+
+    overflow-y: auto;
+}
+
+
+/* FORM */
+
+.auth-form {
+
+    width: 100%;
+}
+
+
+.auth-form h2 {
+
+    font-size: 52px;
+
+    font-weight: 700;
+
+    margin-bottom: 28px;
+
+    color: #ffffff;
+}
+
+
+/* INPUTS */
+
+.auth-form input {
+
+    padding: 18px 20px;
+
+    border:
+        1px solid rgba(255,255,255,0.08);
+
+    background:
+        rgba(255,255,255,0.08);
+
+    transition: 0.3s;
+
+    font-size: 15px;
+}
+
+
+.auth-form input:focus {
+
+    border:
+        1px solid #38bdf8;
+
+    background:
+        rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 0 18px rgba(56,189,248,0.22);
+}
+
+
+.auth-form input::placeholder {
+
+    color:
+        rgba(255,255,255,0.72);
+}
+
+
+/* BUTTON */
+
+.main-btn {
+
+    margin-top: 10px;
+
+    padding: 18px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    box-shadow:
+        0 10px 30px rgba(14,165,233,0.35);
+}
+
+
+.main-btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 35px rgba(14,165,233,0.45);
+}
+
+
+/* LOGIN LINK */
+
+.switch-text {
+
+    margin-top: 24px;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    opacity: 0.92;
+}
+
+
+.switch-text a {
+
+    color: #38bdf8;
+
+    font-weight: 700;
+}
+
+
+/* SCROLLBAR */
+
+.right-side::-webkit-scrollbar {
+
+    width: 6px;
+}
+
+.right-side::-webkit-scrollbar-thumb {
+
+    background: #38bdf8;
+
+    border-radius: 20px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width: 980px) {
+
+    .auth-container {
+
+        flex-direction: column;
+
+        width: 100%;
+
+        max-width: 600px;
+
+        min-height: auto;
+    }
+
+    .left-side {
+
+        width: 100%;
+
+        min-height: 240px;
+    }
+
+    .right-side {
+
+        width: 100%;
+
+        padding: 35px;
+    }
+
+    .auth-form h2 {
+
+        font-size: 38px;
+    }
+
+    .left-side h1 {
+
+        font-size: 48px;
+    }
+}
+
+
+@media(max-width: 600px) {
+
+    .auth-body {
+
+        padding: 20px;
+    }
+
+    .right-side {
+
+        padding: 25px;
+    }
+
+    .auth-form h2 {
+
+        font-size: 32px;
+    }
+
+    .auth-form input {
+
+        padding: 15px;
+    }
+
+    .main-btn {
+
+        padding: 15px;
+    }
+}
+/* =====================================
+   PREMIUM COLOR UPGRADE
+===================================== */
+
+/* SOFTER PREMIUM BACKGROUND */
+
+.auth-body {
+
+    background:
+        linear-gradient(
+            rgba(15, 23, 42, 0.70),
+            rgba(15, 23, 42, 0.70)
+        ),
+
+        url("https://images.unsplash.com/photo-1554224154-22dec7ec8818?q=80&w=2070")
+        no-repeat center center/cover;
+}
+
+
+/* CONTAINER */
+
+.auth-container {
+
+    background:
+        rgba(255,255,255,0.08);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
+
+    box-shadow:
+        0 20px 60px rgba(15,23,42,0.55);
+}
+
+
+/* LEFT SIDE */
+
+/* LEFT SIDE */
+
+.left-side {
+
+    background:
+        linear-gradient(
+            160deg,
+            #f8fafc 0%,
+            #dbeafe 45%,
+            #93c5fd 100%
+        );
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-right:
+        1px solid rgba(255,255,255,0.15);
+}
+
+
+/* RIGHT SIDE */
+
+.right-side {
+
+    background:
+        rgba(15,23,42,0.55);
+}
+
+
+/* TITLE */
+
+.auth-form h2 {
+
+    color: #f8fafc;
+
+    letter-spacing: 1px;
+}
+
+
+/* INPUTS */
+
+.auth-form input {
+
+    background:
+        rgba(255,255,255,0.10);
+
+    border:
+        1px solid rgba(255,255,255,0.10);
+
+    color: #f8fafc;
+}
+
+
+.auth-form input:focus {
+
+    background:
+        rgba(255,255,255,0.14);
+
+    border:
+        1px solid #60a5fa;
+
+    box-shadow:
+        0 0 22px rgba(96,165,250,0.28);
+}
+
+
+/* BUTTON */
+
+.main-btn {
+
+    width: 100%;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #1e3a8a
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    box-shadow:
+        0 10px 25px rgba(15,23,42,0.28);
+}
+
+
+.main-btn:hover {
+
+    transform: translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e293b,
+            #2563eb
+        );
+
+    box-shadow:
+        0 15px 35px rgba(37,99,235,0.25);
+}
+
+
+/* LOGIN LINK */
+
+.switch-text {
+
+    color: rgba(255,255,255,0.82);
+}
+
+
+.switch-text a {
+
+    color: #60a5fa;
+}
+
+
+/* LEFT TEXT */
+
+.left-side h1 {
+
+    font-size: 68px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #0f172a;
+
+    text-shadow:
+        0 5px 15px rgba(255,255,255,0.35);
+
+    z-index: 2;
+}
+
+
+.left-side p {
+
+    color:
+        rgba(15,23,42,0.82);
+
+    font-size: 20px;
+
+    line-height: 1.7;
+
+    max-width: 320px;
+
+    text-align: center;
+
+    z-index: 2;
+}

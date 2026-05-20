@@ -669,3 +669,114 @@ if (
 
     loadTransactions();
 }
+// =========================
+// CHATBOT TOGGLE
+// =========================
+
+function toggleChatbot() {
+
+    const chatbot =
+        document.getElementById(
+            "chatbot-container"
+        );
+
+    chatbot.classList.toggle("hidden");
+}
+
+
+
+// =========================
+// AI CHATBOT
+// =========================
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById(
+            "chat-input"
+        );
+
+    const message =
+        input.value.trim();
+
+    if (!message) return;
+
+    const chatMessages =
+        document.getElementById(
+            "chat-messages"
+        );
+
+    // USER MESSAGE
+
+    chatMessages.innerHTML += `
+
+        <div class="user-message">
+
+            ${message}
+
+        </div>
+    `;
+
+    input.value = "";
+
+    try {
+
+        const response = await fetch(
+
+            "https://ai-chatbot-flask-3ut3.onrender.com/api/chat",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    message: message
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        chatMessages.innerHTML += `
+
+            <div class="bot-message">
+
+                ${data.response}
+
+            </div>
+        `;
+
+        chatMessages.scrollTop =
+            chatMessages.scrollHeight;
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        chatMessages.innerHTML += `
+
+            <div class="bot-message">
+
+                AI server error
+
+            </div>
+        `;
+    }
+}
+function openAIChatbot() {
+
+    window.open(
+        "https://ai-chatbot-flask-3ut3.onrender.com/",
+        "_blank"
+    );
+}

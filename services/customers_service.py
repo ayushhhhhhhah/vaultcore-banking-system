@@ -1,6 +1,6 @@
 import sqlite3
 import bcrypt
-
+from werkzeug.security import generate_password_hash
 from database.db import get_db_connection
 
 
