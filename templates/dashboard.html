@@ -1,0 +1,357 @@
+<!-- templates/dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>VaultCore Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="dashboard-body">
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div>
+
+        <h2 class="logo">
+            VaultCore
+        </h2>
+
+        <ul class="sidebar-menu">
+
+            <li class="active"
+                onclick="showSection('dashboard-section')">
+
+                Dashboard
+
+            </li>
+
+            <li onclick="showSection('accounts-section')">
+
+                Accounts
+
+            </li>
+
+            <li onclick="showSection('transactions-section')">
+
+                Transactions
+
+            </li>
+
+            <li onclick="showSection('deposit-section')">
+
+                Deposit
+
+            </li>
+
+            <li onclick="showSection('withdraw-section')">
+
+                Withdraw
+
+            </li>
+
+            <li onclick="showSection('transfer-section')">
+
+                Transfer
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <button onclick="logoutUser()"
+            class="logout-btn">
+
+        Logout
+
+    </button>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main-dashboard">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Welcome Back 👋
+            </h1>
+
+            <p>
+                Manage your banking securely
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DASHBOARD SECTION -->
+
+    <div id="dashboard-section"
+         class="dashboard-section section">
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>
+                    Total Balance
+                </h3>
+
+                <h2 id="total-balance">
+                    ₹0
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+                    Total Accounts
+                </h3>
+
+                <h2 id="total-accounts">
+                    0
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>
+                    Banking Status
+                </h3>
+
+                <h2>
+                    Active
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="quick-actions">
+
+            <button onclick="showSection('deposit-section')">
+
+                Deposit Money
+
+            </button>
+
+            <button onclick="showSection('withdraw-section')">
+
+                Withdraw Money
+
+            </button>
+
+            <button onclick="showSection('transfer-section')">
+
+                Transfer Money
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ACCOUNTS SECTION -->
+
+    <div id="accounts-section"
+         class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Your Accounts
+            </h2>
+
+        </div>
+
+        <div id="accounts-container">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TRANSACTIONS SECTION -->
+
+    <div id="transactions-section"
+         class="section hidden">
+
+        <div class="section-header">
+
+            <h2>
+                Transaction History
+            </h2>
+
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Transaction ID
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="transactions-table-body">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DEPOSIT SECTION -->
+
+    <div id="deposit-section"
+         class="section hidden">
+
+        <div class="form-box">
+
+            <h2>
+                Deposit Money
+            </h2>
+
+            <input type="number"
+                   id="deposit-account-id"
+                   placeholder="Enter Account ID">
+
+            <input type="number"
+                   id="deposit-amount"
+                   placeholder="Enter Amount">
+
+            <button onclick="depositMoney()">
+
+                Deposit
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- WITHDRAW SECTION -->
+
+    <div id="withdraw-section"
+         class="section hidden">
+
+        <div class="form-box">
+
+            <h2>
+                Withdraw Money
+            </h2>
+
+            <input type="number"
+                   id="withdraw-account-id"
+                   placeholder="Enter Account ID">
+
+            <input type="number"
+                   id="withdraw-amount"
+                   placeholder="Enter Amount">
+
+            <button onclick="withdrawMoney()">
+
+                Withdraw
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TRANSFER SECTION -->
+
+    <div id="transfer-section"
+         class="section hidden">
+
+        <div class="form-box">
+
+            <h2>
+                Transfer Money
+            </h2>
+
+            <input type="number"
+                   id="sender-account-id"
+                   placeholder="Sender Account ID">
+
+            <input type="number"
+                   id="receiver-account-id"
+                   placeholder="Receiver Account ID">
+
+            <input type="number"
+                   id="transfer-amount"
+                   placeholder="Enter Amount">
+
+            <button onclick="transferMoney()">
+
+                Transfer
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

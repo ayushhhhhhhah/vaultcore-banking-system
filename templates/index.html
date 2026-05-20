@@ -1,0 +1,102 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>VaultCore Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="auth-body">
+
+<div class="overlay"></div>
+
+<div class="auth-container">
+
+    <div class="left-side">
+
+        <h1>
+            VaultCore
+        </h1>
+
+        <p>
+            Modern Secure Banking System
+        </p>
+
+    </div>
+
+    <div class="right-side">
+
+        <form id="loginForm"
+              class="auth-form">
+
+            <h2>
+                Login
+            </h2>
+
+            <input type="email"
+                   id="email"
+                   placeholder="Enter Email"
+                   required>
+
+            <input type="password"
+                   id="password"
+                   placeholder="Enter Password"
+                   required>
+
+            <div class="captcha-box">
+
+                <span id="captchaText"></span>
+
+                <button type="button"
+                        onclick="generateCaptcha()">
+
+                    ↻
+
+                </button>
+
+            </div>
+
+            <input type="text"
+                   id="captchaInput"
+                   placeholder="Enter Captcha"
+                   required>
+
+            <button type="submit"
+                    class="main-btn">
+
+                Login
+
+            </button>
+
+            <p class="switch-text">
+
+                Don't have an account?
+
+                <a href="/register">
+                    Register
+                </a>
+
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
