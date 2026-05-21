@@ -780,3 +780,116 @@ function openAIChatbot() {
         "_blank"
     );
 }
+
+function showAssistantResponse(type) {
+
+    let response = "";
+
+
+
+    if(type === "deposit") {
+
+        response = `
+            <h3>💰 Deposit Money</h3>
+
+            <p>
+                To deposit money:
+            </p>
+
+            <ul>
+                <li>Go to Deposit section</li>
+                <li>Enter amount</li>
+                <li>Click Deposit button</li>
+            </ul>
+        `;
+    }
+
+
+
+    else if(type === "withdraw") {
+
+        response = `
+            <h3>💸 Withdraw Money</h3>
+
+            <p>
+                To withdraw money:
+            </p>
+
+            <ul>
+                <li>Go to Withdraw section</li>
+                <li>Enter amount</li>
+                <li>Click Withdraw button</li>
+            </ul>
+        `;
+    }
+
+
+
+    else if(type === "transfer") {
+
+        response = `
+            <h3>🔄 Transfer Money</h3>
+
+            <p>
+                To transfer money:
+            </p>
+
+            <ul>
+                <li>Go to Transfer section</li>
+                <li>Enter receiver account ID</li>
+                <li>Enter amount</li>
+                <li>Click Transfer button</li>
+            </ul>
+        `;
+    }
+
+
+
+    else if(type === "balance") {
+
+        response = `
+            <h3>📊 View Balance</h3>
+
+            <p>
+                Your total balance is displayed
+                on the dashboard home page.
+            </p>
+        `;
+    }
+
+
+
+    else if(type === "transactions") {
+
+        response = `
+            <h3>📜 View Transactions</h3>
+
+            <p>
+                Open Transactions section
+                from sidebar menu to view
+                complete transaction history.
+            </p>
+        `;
+    }
+
+
+
+    else if(type === "accounts") {
+
+        response = `
+            <h3>🏦 Account Information</h3>
+
+            <p>
+                Your linked bank accounts
+                are displayed inside
+                the Accounts section.
+            </p>
+        `;
+    }
+
+
+
+    document.getElementById(
+        "assistant-response"
+    ).innerHTML = response;
+}

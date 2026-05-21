@@ -1407,3 +1407,36 @@ tbody tr:hover {
 
     z-index: 2;
 }
+.assistant-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+}
+
+.assistant-options button {
+    background: #1e293b;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.assistant-options button:hover {
+    background: #2563eb;
+}
+
+#assistant-response {
+    padding: 15px;
+    color: white;
+}
+
+#assistant-response h3 {
+    margin-bottom: 10px;
+}
+
+#assistant-response ul {
+    padding-left: 20px;
+}

@@ -1,6 +1,4 @@
+sqlite3 banking.db
+*.db-journal
 venv/
 __pycache__/
-*.pyc
-.idea/
-*.sqbpro
-.env

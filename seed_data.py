@@ -1,5 +1,6 @@
 import random
 import sqlite3
+import bcrypt
 
 from faker import Faker
 
@@ -8,49 +9,91 @@ fake = Faker()
 
 # DATABASE CONNECTION
 
-conn = sqlite3.connect("sqlite3 banking.db")
+conn = sqlite3.connect("database/production.db")
 
 cursor = conn.cursor()
 
 
-for i in range(100000):
+# INSERT BRANCH IF NOT EXISTS
 
-    first_name = fake.first_name()
-
-    middle_name = fake.first_name()
-
-    last_name = fake.last_name()
-
-
-    # UNIQUE EMAIL
-
-    email = (
-        f"{fake.user_name()}"
-        f"{random.randint(1000,999999)}@gmail.com"
+cursor.execute(
+    '''
+    INSERT OR IGNORE INTO branches
+    (
+        branch_id,
+        branch_name,
+        city
     )
-
-
-    # UNIQUE PHONE
-
-    phone = str(
-        random.randint(
-            6000000000,
-            9999999999
-        )
+    VALUES (?, ?, ?)
+    ''',
+    (
+        1,
+        "Main Branch",
+        "Mumbai"
     )
+)
 
 
-    # PASSWORD
+# OPTIONAL: CLEAR OLD DATA
 
-    password = "password123"
+cursor.execute("DELETE FROM accounts")
+cursor.execute("DELETE FROM customers")
 
 
-    # NO BCRYPT FOR FAST INSERT
+# RESET AUTO INCREMENT IDS
 
-    hashed_password = password
+cursor.execute(
+    "DELETE FROM sqlite_sequence WHERE name='customers'"
+)
 
+cursor.execute(
+    "DELETE FROM sqlite_sequence WHERE name='accounts'"
+)
+
+
+# GENERATE FAKE USERS
+
+for i in range(100):
 
     try:
+
+        first_name = fake.first_name()
+
+        middle_name = fake.first_name()
+
+        last_name = fake.last_name()
+
+
+        # UNIQUE EMAIL
+
+        email = (
+            f"{fake.user_name()}"
+            f"{random.randint(1000,999999)}@gmail.com"
+        )
+
+
+        # UNIQUE PHONE
+
+        phone = str(
+            random.randint(
+                6000000000,
+                9999999999
+            )
+        )
+
+
+        # PASSWORD
+
+        password = "password123"
+
+
+        # HASH PASSWORD
+
+        hashed_password = bcrypt.hashpw(
+            password.encode("utf-8"),
+            bcrypt.gensalt()
+        ).decode("utf-8")
+
 
         # INSERT CUSTOMER
 
@@ -76,6 +119,7 @@ for i in range(100000):
                 hashed_password
             )
         )
+
 
         customer_id = cursor.lastrowid
 
@@ -120,9 +164,13 @@ for i in range(100000):
             )
         )
 
-    except Exception:
 
-        continue
+        print(f"Inserted customer {customer_id}")
+
+
+    except Exception as e:
+
+        print("ERROR:", e)
 
 
 conn.commit()

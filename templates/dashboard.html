@@ -354,14 +354,13 @@
 
 </div>
 
-<!-- AI CHATBOT -->
+<!-- AI ASSISTANT -->
 
-<div id="chatbot-container"
-     class="hidden">
+<div id="chatbot-container" class="hidden">
 
     <div class="chatbot-header">
 
-        VaultCore AI Assistant
+        VaultCore Smart Assistant
 
         <span onclick="toggleChatbot()">
             ✖
@@ -369,27 +368,57 @@
 
     </div>
 
-    <div id="chat-messages">
 
-    </div>
+    <!-- OPTIONS -->
 
-    <div class="chat-input-area">
+    <div class="assistant-options">
 
-        <input
-            type="text"
-            id="chat-input"
-            placeholder="Ask something..."
-        >
+        <button onclick="showAssistantResponse('deposit')">
+            💰 Deposit Money
+        </button>
 
-        <button onclick="sendMessage()">
+        <button onclick="showAssistantResponse('withdraw')">
+            💸 Withdraw Money
+        </button>
 
-            Send
+        <button onclick="showAssistantResponse('transfer')">
+            🔄 Transfer Money
+        </button>
 
+        <button onclick="showAssistantResponse('balance')">
+            📊 View Balance
+        </button>
+
+        <button onclick="showAssistantResponse('transactions')">
+            📜 View Transactions
+        </button>
+
+        <button onclick="showAssistantResponse('accounts')">
+            🏦 Account Information
         </button>
 
     </div>
 
+
+    <!-- RESPONSE AREA -->
+
+    <div id="assistant-response">
+
+        <h3>
+            Welcome to VaultCore Assistant 👋
+        </h3>
+
+        <p>
+            Select an option above to continue.
+        </p>
+
+    </div>
+
 </div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 

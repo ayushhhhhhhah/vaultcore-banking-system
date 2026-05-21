@@ -1,8 +1,11 @@
 import sqlite3
 
+
 def get_db_connection():
 
-    conn = sqlite3.connect('sqlite3 banking.db')
+    conn = sqlite3.connect(
+        "database/production.db",
+    )
 
     conn.row_factory = sqlite3.Row
 
