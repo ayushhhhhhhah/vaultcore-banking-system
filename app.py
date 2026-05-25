@@ -6,6 +6,7 @@ from routes.customers import customer_routes
 from routes.accounts import account_routes
 from routes.transactions import transaction_routes
 from routes.login import login_route
+from services.email_service import send_signup_email
 
 app = Flask(__name__)
 
@@ -36,5 +37,5 @@ def register():
     return render_template('register.html')
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

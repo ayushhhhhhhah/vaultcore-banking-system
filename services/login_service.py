@@ -4,6 +4,9 @@ from flask_jwt_extended import create_access_token
 
 from database.db import get_db_connection
 
+from services.email_service import send_login_email
+
+
 
 def login_customer(email, password):
 
@@ -40,6 +43,10 @@ def login_customer(email, password):
         return {
             "error": "Invalid password"
         }, 401
+
+    send_login_email(
+        receiver_email=customer["email"]
+    )
 
     # JWT TOKEN
     access_token = create_access_token(

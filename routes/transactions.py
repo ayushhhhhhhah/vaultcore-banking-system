@@ -147,4 +147,13 @@ def transfer():
         amount
     )
 
+    fraud_flag = 0
+    fraud_reason = ""
+
+    if amount > 10000:
+        fraud_flag = 1
+        fraud_reason = "Large transaction detected"
+
     return jsonify(result), 200
+
+

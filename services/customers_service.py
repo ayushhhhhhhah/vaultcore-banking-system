@@ -1,8 +1,7 @@
 import sqlite3
 import bcrypt
-from werkzeug.security import generate_password_hash
 from database.db import get_db_connection
-
+from services.email_service import send_signup_email
 
 # GET LOGGED-IN CUSTOMER ONLY
 def get_all_customers(logged_in_customer_id):
@@ -70,6 +69,8 @@ def add_new_customer(
         )
 
         conn.commit()
+
+        send_signup_email(email)
 
         return {
             "message": "Customer Added Successfully"
@@ -228,3 +229,61 @@ def delete_specific_customer(customer_id):
     finally:
 
         conn.close()
+
+def change_customer_password(
+        customer_id,
+        old_password,
+        new_password
+):
+    conn = get_db_connection()
+
+    customer = conn.execute(
+        '''
+        SELECT *
+        FROM customers
+        WHERE customer_id = ?
+        ''',(customer_id)
+    ).fetchone()
+
+    if customer is None:
+        conn.close()
+
+        return {
+            "error": "Customer Not Found"
+        }
+    stored_password = customer['password']
+
+    password_correct = bcrypt.checkpw(
+        old_password.encode('utf-8'),
+        stored_password.encode('utf-8')
+    )
+
+    if not password_correct:
+        conn.close()
+        return {
+            "error": "Password Not Correct"
+        }
+
+    hashed_new_password = bcrypt.hashpw(
+        new_password.encode('utf-8'),
+        bcrypt.gensalt()
+    ).decode('utf-8')
+
+    conn.execute(
+        '''
+        UPDATE customers
+        SET password = ?
+        WHERE customer_id = ?
+        ''',
+        (
+            hashed_new_password,
+            customer_id
+        )
+    )
+    conn.commit()
+
+    conn.close()
+
+    return {
+        "message": "Password changed successfully"
+    }

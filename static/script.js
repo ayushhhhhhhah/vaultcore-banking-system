@@ -893,3 +893,45 @@ function showAssistantResponse(type) {
         "assistant-response"
     ).innerHTML = response;
 }
+async function changePassword() {
+
+    const oldPassword =
+        document.getElementById(
+            "oldPassword"
+        ).value;
+
+    const newPassword =
+        document.getElementById(
+            "newPassword"
+        ).value;
+
+    const token =
+        localStorage.getItem("token");
+
+    const response = await fetch(
+        "http://127.0.0.1:5000/change-password",
+        {
+            method: "PUT",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json",
+
+                "Authorization":
+                    `Bearer ${token}`
+            },
+
+            body: JSON.stringify({
+
+                old_password: oldPassword,
+
+                new_password: newPassword
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    alert(data.message || data.error);
+}

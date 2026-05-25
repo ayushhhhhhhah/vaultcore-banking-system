@@ -1,5 +1,9 @@
+from faker import Faker
 from database.db import get_db_connection
-
+from datetime import datetime
+from services.email_service import send_transaction_email
+from services.email_service import send_fraud_alert_email
+fake = Faker()
 
 # GET ALL TRANSACTIONS OF LOGGED-IN USER
 def get_all_transactions(logged_in_customer_id):
@@ -76,6 +80,23 @@ def create_new_transaction(
         )
 
         conn.commit()
+
+        customer = conn.execute(
+            '''
+            SELECT customers.email
+            FROM customers
+            JOIN accounts
+            ON customers.customer_id = accounts.customer_id
+            WHERE accounts.account_id = ?
+            ''',
+            (account_id,)
+        ).fetchone()
+
+        send_transaction_email(
+            revicer_email= customer['email'],
+            transaction_type= transaction_type,
+            amount = amount
+        )
 
         return {
             "message": "Transaction created successfully"
@@ -179,6 +200,25 @@ def transfer_funds(
     receiver_account_id,
     amount
 ):
+    FRAUD_TRANSACTION_LIMIT = 10000
+    FRAUD_TRANSACTION_LIMIT_LESS = 10000
+    fraud_flag = 0
+    fraud_reason = ""
+    transaction_time = fake.date_time_this_month()
+
+    if amount > FRAUD_TRANSACTION_LIMIT:
+        fraud_flag = 2
+        fraud_reason = "Large transaction detected"
+
+    if amount < FRAUD_TRANSACTION_LIMIT_LESS:
+        fraud_flag = 1
+        fraud_reason = "Normal transaction"
+
+    current_hour = transaction_time.hour
+
+    if 1 <= current_hour <= 5:
+        fraud_flag = 3
+        fraud_reason = "Night time payment suspicious transaction"
 
     conn = get_db_connection()
 
@@ -257,26 +297,57 @@ def transfer_funds(
         conn.execute(
             '''
             INSERT INTO transactions
-            (account_id, transaction_type, amount)
-            VALUES (?, ?, ?)
+            (account_id, transaction_type, amount,fraud_flag,fraud_reason,time_of_transaction)
+            VALUES (?, ?, ? , ? , ? , ?)
             ''',
-            (sender_account_id, 'Withdraw', amount)
+            (sender_account_id, 'Withdraw', amount , fraud_flag , fraud_reason , transaction_time)
         )
 
         # DEPOSIT HISTORY
         conn.execute(
             '''
             INSERT INTO transactions
-            (account_id, transaction_type, amount)
-            VALUES (?, ?, ?)
+            (account_id, transaction_type, amount , fraud_flag , fraud_reason, time_of_transaction)
+            VALUES (?, ?, ?, ? , ? ,?)
             ''',
-            (receiver_account_id, 'Deposit', amount)
+            (receiver_account_id, 'Deposit', amount , fraud_flag , fraud_reason ,transaction_time)
         )
 
         conn.commit()
 
+        customer = conn.execute(
+            '''
+            SELECT customers.email
+            FROM customers
+            JOIN accounts
+            ON customers.customer_id = accounts.customer_id
+            WHERE accounts.account_id = ?
+            ''',
+            (sender_account_id,)
+        ).fetchone()
+
+        if customer:
+
+            send_transaction_email(
+                receiver_email=customer['email'],
+                transaction_type="Transfer",
+                amount=amount
+            )
+
+        else:
+
+            print("Customer email not found")
+
+        send_fraud_alert_email(
+            receiver_email=customer['email'],
+            fraud_reason=fraud_reason,
+            amount = amount
+        )
+
         return {
-            "message": "Transfer successful"
+            "message": "Transfer successful",
+            "fraud_flag": fraud_flag,
+            "fraud_reason": fraud_reason
         }
 
     except Exception as e:
@@ -359,6 +430,7 @@ def withdraw_any_funds(
 
         conn.commit()
 
+
         return {
             "message": "Withdraw successful"
         }
@@ -374,3 +446,4 @@ def withdraw_any_funds(
     finally:
 
         conn.close()
+

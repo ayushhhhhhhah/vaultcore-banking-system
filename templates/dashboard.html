@@ -73,6 +73,12 @@
 
             </li>
 
+            <li onclick="showSection('change-password-section')">
+
+    Change Password
+
+</li>
+
         </ul>
 
     </div>
@@ -205,6 +211,8 @@
         </div>
 
     </div>
+
+
 
 
 
@@ -349,6 +357,34 @@
             </button>
 
         </div>
+
+    </div>
+
+</div>
+<!-- CHANGE PASSWORD SECTION -->
+
+<div id="change-password-section"
+     class="section hidden">
+
+    <div class="form-box">
+
+        <h2>
+            Change Password
+        </h2>
+
+        <input type="password"
+               id="old-password"
+               placeholder="Enter Old Password">
+
+        <input type="password"
+               id="new-password"
+               placeholder="Enter New Password">
+
+        <button onclick="changePassword()">
+
+            Change Password
+
+        </button>
 
     </div>
 

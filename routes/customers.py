@@ -6,7 +6,8 @@ from services.customers_service import (
     add_new_customer,
     delete_specific_customer,
     get_specific_customer,
-    update_specific_customer
+    update_specific_customer,
+    change_customer_password
 )
 
 customer_routes = Blueprint(
@@ -123,6 +124,28 @@ def delete_customer(customer_id):
         }), 403
 
     result = delete_specific_customer(customer_id)
+
+    if "error" in result:
+        return jsonify(result), 400
+
+    return jsonify(result), 200
+
+@customer_routes.route('/change-password', methods=['PUT'])
+@jwt_required()
+def change_password():
+
+    logged_in_customer_id = int(get_jwt_identity())
+
+    data = request.get_json()
+
+    old_password = data['old_password']
+    new_password = data['new_password']
+
+    result = change_customer_password(
+        logged_in_customer_id,
+        old_password,
+        new_password
+    )
 
     if "error" in result:
         return jsonify(result), 400
