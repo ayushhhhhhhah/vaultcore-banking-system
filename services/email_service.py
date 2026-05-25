@@ -3,7 +3,6 @@ import os #Use to access .env folder
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.quoprimime import body_check
 
 from dotenv import load_dotenv
 load_dotenv()#Help to load env folder
@@ -49,9 +48,11 @@ VaultCore Banking Team
 
         server = smtplib.SMTP(
             'smtp.gmail.com',
-            587
+            587,
+            timeout=10
         ) #Use to connect to email server 587 TLS secure email sending port
 
+        server.ehlo()
         server.starttls() #Enable encription
 
         server.login(
@@ -102,8 +103,11 @@ VaultCore Banking Security Team
 
         server = smtplib.SMTP(
             'smtp.gmail.com',
-            587
+            587,
+            timeout=10
         )
+
+        server.ehlo()
 
         server.starttls()
 
@@ -144,7 +148,7 @@ VaultCore Banking Team
 """
     msg = MIMEMultipart()
 
-    msg['FROM'] = EMAIL_USER
+    msg['From'] = EMAIL_USER
     msg['To'] = revicer_email
     msg['Subject'] = subject
 
@@ -154,8 +158,11 @@ VaultCore Banking Team
 
         server = smtplib.SMTP(
             'smtp.gmail.com',
-            587
+            587,
+            timeout=10
         )
+
+        server.ehlo()
 
         server.starttls()
 
@@ -222,8 +229,11 @@ VaultCore Banking Security Team
 
         server = smtplib.SMTP(
             'smtp.gmail.com',
-            587
+            587,
+            timeout=10
         )
+
+        server.ehlo()
 
         server.starttls()
 
