@@ -68,7 +68,7 @@ if (loginForm) {
 
                 const response = await fetch(
 
-                    "http://127.0.0.1:5000/login",
+                    "/login",
 
                     {
 
@@ -96,7 +96,7 @@ if (loginForm) {
 
                     localStorage.setItem(
                         "token",
-                        data.access_token
+                        data.token
                     );
 
                     window.location.href =
@@ -160,7 +160,7 @@ if (registerForm) {
 
                 const response = await fetch(
 
-                    "http://127.0.0.1:5000/customers",
+                    "/customers",
 
                     {
 
@@ -253,7 +253,7 @@ async function loadAccounts() {
 
         const response = await fetch(
 
-            "http://127.0.0.1:5000/accounts",
+            "/accounts",
 
             {
 
@@ -342,7 +342,7 @@ async function loadTransactions() {
 
         const response = await fetch(
 
-            "http://127.0.0.1:5000/transactions",
+            "/transactions",
 
             {
 
@@ -419,7 +419,7 @@ async function depositMoney() {
 
         const response = await fetch(
 
-            "http://127.0.0.1:5000/deposit",
+            "/deposit",
 
             {
 
@@ -497,7 +497,7 @@ async function withdrawMoney() {
 
         const response = await fetch(
 
-            "http://127.0.0.1:5000/withdraw",
+            "/withdraw",
 
             {
 
@@ -579,7 +579,7 @@ async function transferMoney() {
 
         const response = await fetch(
 
-            "http://127.0.0.1:5000/transfer",
+            "/transfer",
 
             {
 
@@ -909,7 +909,7 @@ async function changePassword() {
         localStorage.getItem("token");
 
     const response = await fetch(
-        "http://127.0.0.1:5000/change-password",
+        "/change-password",
         {
             method: "PUT",
 
