@@ -1,7 +1,7 @@
 import sqlite3
 import bcrypt
 from database.db import get_db_connection
-from services.email_service import send_signup_email
+
 
 # GET LOGGED-IN CUSTOMER ONLY
 def get_all_customers(logged_in_customer_id):
@@ -70,7 +70,7 @@ def add_new_customer(
 
         conn.commit()
 
-        send_signup_email(email)
+        #send_signup_email(email)
 
         return {
             "message": "Customer Added Successfully"

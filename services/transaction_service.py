@@ -1,8 +1,7 @@
 from faker import Faker
 from database.db import get_db_connection
 from datetime import datetime
-from services.email_service import send_transaction_email
-from services.email_service import send_fraud_alert_email
+
 fake = Faker()
 
 # GET ALL TRANSACTIONS OF LOGGED-IN USER
@@ -92,11 +91,7 @@ def create_new_transaction(
             (account_id,)
         ).fetchone()
 
-        send_transaction_email(
-            revicer_email= customer['email'],
-            transaction_type= transaction_type,
-            amount = amount
-        )
+
 
         return {
             "message": "Transaction created successfully"
@@ -326,23 +321,22 @@ def transfer_funds(
             (sender_account_id,)
         ).fetchone()
 
-        if customer:
+        #if customer:
 
-            send_transaction_email(
-                receiver_email=customer['email'],
-                transaction_type="Transfer",
-                amount=amount
-            )
+           # send_transaction_email(
+            #    receiver_email=customer['email'],
+             #   transaction_type="Transfer",
+              #  amount=amount
+            #)
 
-        else:
+        #else:
+         #   print("Customer email not found")
 
-            print("Customer email not found")
-
-        send_fraud_alert_email(
-            receiver_email=customer['email'],
-            fraud_reason=fraud_reason,
-            amount = amount
-        )
+       # send_fraud_alert_email(
+            #receiver_email=customer['email'],
+          #  fraud_reason=fraud_reason,
+         #   amount = amount
+        #)
 
         return {
             "message": "Transfer successful",

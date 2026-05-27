@@ -94,13 +94,23 @@ if (loginForm) {
 
                 if (response.ok) {
 
+                    console.log(data);
+
+                    console.log(data.token);
+
                     localStorage.setItem(
-                        "token",
-                        data.token
+                    "token",
+                      data.token
                     );
 
+                    console.log(
+                    localStorage.getItem("token")
+                     );
+
+                    alert("LOGIN SUCCESS");
+
                     window.location.href =
-                        "/dashboard";
+                    window.location.origin + "/dashboard";
                 }
 
                 else {

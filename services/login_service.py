@@ -44,9 +44,9 @@ def login_customer(email, password):
             "error": "Invalid password"
         }, 401
 
-    send_login_email(
+    #send_login_email(
         receiver_email=customer["email"]
-    )
+   # )
 
     # JWT TOKEN
     access_token = create_access_token(
